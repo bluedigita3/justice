@@ -23,7 +23,7 @@
   <section class="hero container">
     <div class="hero-card">
       <div class="kicker">Daily Deals</div>
-      <h1>Hand‑picked gadgets & essentials</h1>
+      <h1>Hand-picked gadgets & essentials</h1>
       <p class="lead">Edit <code>products.json</code> to update the grid. No code changes needed.</p>
       <div style="margin-top:1rem">
         <a class="btn btn-primary" href="#deals">See Today’s Picks</a>
@@ -33,6 +33,17 @@
   </section>
 
   <section id="deals" class="section container">
+    <!-- 🔍 Search & Filter Controls -->
+    <div class="filters" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem">
+      <input type="text" id="search" placeholder="Search products..." style="flex:1;min-width:220px;padding:.8rem 1rem;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f1420;color:#eaf0ff">
+      <select id="priceFilter" style="padding:.8rem 1rem;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f1420;color:#eaf0ff">
+        <option value="">All Prices</option>
+        <option value="under25">Under $25</option>
+        <option value="25to50">$25 - $50</option>
+        <option value="over50">Over $50</option>
+      </select>
+    </div>
+
     <div id="grid" class="grid grid-sm-2 grid-md-3 grid-lg-4">
       <!-- JS will render product cards here from products.json -->
     </div>
