@@ -1,62 +1,87 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.getElementById("grid"); // product grid container
+  const grid = document.getElementById("grid");
   const searchInput = document.getElementById("search");
   const priceFilter = document.getElementById("priceFilter");
 
-  let productsData = [];
+  let products = [];
 
-  // Load products from products.json
-  fetch("products.json")
-    .then(res => res.json())
-    .then(data => {
-      productsData = data;
-      renderProducts(productsData);
+  // Load products.json (bust cache)
+  fetch("products.json?v=" + Date.now(), { cache: "no-store" })
+    .then((res) => {
+      if (!res.ok) throw new Error("products.json not found (" + res.status + ")");
+      return res.json();
     })
-    .catch(err => console.error("Error loading products.json:", err));
+    .then((data) => {
+      products = Array.isArray(data) ? data : [];
+      render(products);
+    })
+    .catch((err) => {
+      console.error(err);
+      grid.innerHTML = `<p class="small">Could not load <code>products.json</code>. Make sure it's next to <code>index.html</code>. Error: ${err.message}</p>`;
+    });
 
-  // Render product cards
-  function renderProducts(items) {
-    grid.innerHTML = "";
-    if (items.length === 0) {
-      grid.innerHTML = "<p>No products match your filters.</p>";
+  function render(list) {
+    if (!grid) return;
+    if (!list.length) {
+      grid.innerHTML = `<p class="small">No products match your filters.</p>`;
       return;
     }
-    items.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `
-        <img src="${p.image}" alt="${p.title}">
-        <h3>${p.title}</h3>
-        <p>
-          <span class="price-now">$${p.priceNow}</span>
-          <span class="price-was">$${p.priceWas}</span>
-        </p>
-        <a href="${p.url}" target="_blank" class="btn">Buy Now</a>
-      `;
-      grid.appendChild(card);
-    });
+    grid.innerHTML = list
+      .map((p) => {
+        const badge =
+          p.badge
+            ? `<span class="badge ${p.badge.toLowerCase() === "hot" ? "badge-hot" : "badge-deal"}" style="position:absolute;top:10px;left:10px">${p.badge}</span>`
+            : "";
+        const was = p.priceWas ? `<span class="was">$${p.priceWas}</span>` : "";
+        return `
+        <article class="card">
+          ${badge}
+          <a class="card-media" href="${p.url}" target="_blank" rel="nofollow noopener">
+            <img src="${p.image}" alt="${escapeHtml(p.title || "")}">
+          </a>
+          <div class="card-body">
+            <a class="card-title" href="${p.url}" target="_blank" rel="nofollow noopener">${escapeHtml(p.title || "")}</a>
+            <div class="card-price">
+              <span class="now">$${p.priceNow}</span>
+              ${was}
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary cta" href="${p.url}" target="_blank" rel="nofollow noopener">Buy</a>
+              <a class="btn btn-ghost" href="#">Details</a>
+            </div>
+          </div>
+        </article>`;
+      })
+      .join("");
   }
 
-  // Filter products based on search and price
-  function filterProducts() {
-    let term = searchInput.value.toLowerCase();
-    let priceRange = priceFilter.value;
+  function filterNow() {
+    const term = (searchInput?.value || "").toLowerCase();
+    const range = priceFilter?.value || "";
 
-    let filtered = productsData.filter(p => {
-      let matchesSearch = p.title.toLowerCase().includes(term);
-      let matchesPrice = true;
+    const filtered = products.filter((p) => {
+      const t = (p.title || "").toLowerCase();
+      const price = Number(p.priceNow) || 0;
 
-      if (priceRange === "under25") matchesPrice = Number(p.priceNow) < 25;
-      if (priceRange === "25to50") matchesPrice = Number(p.priceNow) >= 25 && Number(p.priceNow) <= 50;
-      if (priceRange === "over50") matchesPrice = Number(p.priceNow) > 50;
+      let ok = t.includes(term);
+      if (range === "under25") ok = ok && price < 25;
+      if (range === "25to50") ok = ok && price >= 25 && price <= 50;
+      if (range === "over50") ok = ok && price > 50;
 
-      return matchesSearch && matchesPrice;
+      return ok;
     });
 
-    renderProducts(filtered);
+    render(filtered);
   }
 
-  // Listen for changes
-  if (searchInput) searchInput.addEventListener("input", filterProducts);
-  if (priceFilter) priceFilter.addEventListener("change", filterProducts);
+  // Wire up filters
+  searchInput && searchInput.addEventListener("input", filterNow);
+  priceFilter && priceFilter.addEventListener("change", filterNow);
+
+  // Escape HTML for safety
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => (
+      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+    ));
+  }
 });
