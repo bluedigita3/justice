@@ -1,44 +1,62 @@
-\
-// Cookie banner
-(function(){
-  const banner = document.getElementById('cookieBanner');
-  if(!banner) return;
-  const KEY = 'justice_cookie_accept';
-  if(!localStorage.getItem(KEY)){ banner.hidden = false; }
-  document.getElementById('cookieAccept').addEventListener('click', ()=>{
-    localStorage.setItem(KEY,'1'); banner.hidden = true;
-  });
-  document.getElementById('cookieDeny').addEventListener('click', ()=> banner.hidden = true);
-})();
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.getElementById("grid"); // product grid container
+  const searchInput = document.getElementById("search");
+  const priceFilter = document.getElementById("priceFilter");
 
-// Render grid from products.json
-async function renderProducts(){
-  const grid = document.getElementById('grid');
-  try{
-    const res = await fetch('products.json', {cache:'no-store'});
-    if(!res.ok) throw new Error('Failed to load products.json');
-    const items = await res.json();
-    grid.innerHTML = items.map(it => `
-      <article class="card">
-        ${it.badge ? `<span class="badge ${it.badge.toLowerCase()==='hot'?'badge-hot':'badge-deal'}" style="position:absolute;top:10px;left:10px">${it.badge}</span>`:''}
-        <a class="card-media" href="${it.url}" target="_blank" rel="nofollow noopener">
-          <img src="${it.image}" alt="${it.title}">
-        </a>
-        <div class="card-body">
-          <a class="card-title" href="${it.url}" target="_blank" rel="nofollow noopener">${it.title}</a>
-          <div class="card-price">
-            <span class="now">$${it.priceNow}</span>
-            ${it.priceWas ? `<span class="was">$${it.priceWas}</span>`:''}
-          </div>
-          <div class="card-actions">
-            <a class="btn btn-primary cta" href="${it.url}" target="_blank" rel="nofollow noopener">Buy</a>
-            <a class="btn btn-ghost" href="#">Details</a>
-          </div>
-        </div>
-      </article>
-    `).join('');
-  }catch(err){
-    grid.innerHTML = `<p class="small">Could not load products.json. Make sure it sits next to index.html. Error: ${err.message}</p>`;
+  let productsData = [];
+
+  // Load products from products.json
+  fetch("products.json")
+    .then(res => res.json())
+    .then(data => {
+      productsData = data;
+      renderProducts(productsData);
+    })
+    .catch(err => console.error("Error loading products.json:", err));
+
+  // Render product cards
+  function renderProducts(items) {
+    grid.innerHTML = "";
+    if (items.length === 0) {
+      grid.innerHTML = "<p>No products match your filters.</p>";
+      return;
+    }
+    items.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.title}">
+        <h3>${p.title}</h3>
+        <p>
+          <span class="price-now">$${p.priceNow}</span>
+          <span class="price-was">$${p.priceWas}</span>
+        </p>
+        <a href="${p.url}" target="_blank" class="btn">Buy Now</a>
+      `;
+      grid.appendChild(card);
+    });
   }
-}
-document.addEventListener('DOMContentLoaded', renderProducts);
+
+  // Filter products based on search and price
+  function filterProducts() {
+    let term = searchInput.value.toLowerCase();
+    let priceRange = priceFilter.value;
+
+    let filtered = productsData.filter(p => {
+      let matchesSearch = p.title.toLowerCase().includes(term);
+      let matchesPrice = true;
+
+      if (priceRange === "under25") matchesPrice = Number(p.priceNow) < 25;
+      if (priceRange === "25to50") matchesPrice = Number(p.priceNow) >= 25 && Number(p.priceNow) <= 50;
+      if (priceRange === "over50") matchesPrice = Number(p.priceNow) > 50;
+
+      return matchesSearch && matchesPrice;
+    });
+
+    renderProducts(filtered);
+  }
+
+  // Listen for changes
+  if (searchInput) searchInput.addEventListener("input", filterProducts);
+  if (priceFilter) priceFilter.addEventListener("change", filterProducts);
+});
