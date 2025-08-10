@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Justice – Deals & Picks</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="#"><span class="brand-logo"></span><span>Justice</span></a>
+    <nav class="nav-links">
+      <a href="#deals">Deals</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a class="nav-cta" href="#newsletter">Subscribe</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero container">
+    <div class="hero-card">
+      <div class="kicker">Daily Deals</div>
+      <h1>Hand‑picked gadgets & essentials</h1>
+      <p class="lead">Edit <code>products.json</code> to update the grid. No code changes needed.</p>
+      <div style="margin-top:1rem">
+        <a class="btn btn-primary" href="#deals">See Today’s Picks</a>
+        <a class="btn btn-ghost" href="#about">How it works</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="deals" class="section container">
+    <div id="grid" class="grid grid-sm-2 grid-md-3 grid-lg-4">
+      <!-- JS will render product cards here from products.json -->
+    </div>
+  </section>
+
+  <section id="newsletter" class="section container">
+    <div class="hero-card">
+      <h2>Join the list</h2>
+      <p class="lead">Get the best picks once a week.</p>
+      <form onsubmit="alert('Pretend subscribed! Replace with your form backend.');return false;" style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem">
+        <input type="email" placeholder="you@example.com" required style="flex:1;min-width:220px;padding:.8rem 1rem;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f1420;color:#eaf0ff">
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container cols" style="display:grid;gap:2rem;padding-block:2.5rem">
+    <div>
+      <div class="brand"><span class="brand-logo"></span><span>Justice</span></div>
+      <p class="small" style="max-width:60ch">As an affiliate, we may earn commissions from qualifying purchases. Prices and availability are subject to change.</p>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <p class="small"><a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms</a></p>
+    </div>
+  </div>
+  <div class="subfooter">&copy; <span id="year"></span> Justice</div>
+</footer>
+
+<!-- Cookie banner -->
+<div class="cookie" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+  <div class="row">
+    <p class="small">We use cookies to improve your experience. Manage preferences or accept to continue.</p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="cookieDeny">Deny</button>
+      <button class="btn btn-primary" id="cookieAccept">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>

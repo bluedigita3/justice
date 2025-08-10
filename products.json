@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Wireless Earbuds Pro",
+    "priceNow": 39,
+    "priceWas": 89,
+    "image": "assets/img/placeholder-800.jpg",
+    "url": "https://www.amazon.com/",
+    "badge": "Hot"
+  },
+  {
+    "title": "Smart LED Light Strips",
+    "priceNow": 12,
+    "priceWas": 29,
+    "image": "assets/img/placeholder-800.jpg",
+    "url": "https://www.amazon.com/",
+    "badge": "Deal"
+  },
+  {
+    "title": "USB\u2011C GaN Charger 65W",
+    "priceNow": 24,
+    "priceWas": 49,
+    "image": "assets/img/placeholder-800.jpg",
+    "url": "https://www.amazon.com/",
+    "badge": ""
+  },
+  {
+    "title": "Desk Mat XL",
+    "priceNow": 9,
+    "priceWas": 19,
+    "image": "assets/img/placeholder-800.jpg",
+    "url": "https://www.amazon.com/",
+    "badge": ""
+  }
+]
