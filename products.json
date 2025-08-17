@@ -70,5 +70,13 @@
     "image": "assets/img/desklamp.png",
     "url": "https://amzn.to/4oXaPTp",
     "badge": "deal"
-  }
+  },
+    {
+    "title": "Docking Station",
+    "priceNow": 112,
+    "priceWas": 229,
+    "image": "assets/img/hpdock.jpg",
+    "url": "https://amzn.to/45TqFXs",
+    "badge": "Deal"
+    }
 ]
