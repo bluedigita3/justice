@@ -30,5 +30,45 @@
     "image": "assets/img/hyperx.png",
     "url": "https://www.amazon.com/dp/B08KFL3SFV?linkCode=ssc&tag=onamzbluedigi-20&creativeASIN=B08KFL3SFV&asc_item-id=amzn1.ideas.1WZWLCO00CFKL&th=1",
     "badge": ""
+  },
+    {
+    "title": "Laptop Stand",
+    "priceNow": 38,
+    "priceWas": "",
+    "image": "assets/img/lapstand.png",
+    "url": "https://www.amazon.com/dp/B0CYLGPVMC?ref=t_ac_view_request_product_image&campaignId=amzn1.campaign.34LZQ5S5494N3&linkCode=tr1&tag=bluedigita01-20&linkId=amzn1.campaign.34LZQ5S5494N3_1755459071046",
+    "badge": ""
+  },
+  {
+    "title": "Monitor Stand",
+    "priceNow": 25,
+    "priceWas": 35,
+    "image": "assets/img/dualstand.png",
+    "url": "https://amzn.to/4mlS2PT",
+    "badge": ""
+  },
+  {
+    "title": "Vertical Mouse",
+    "priceNow": "",
+    "priceWas": "",
+    "image": "assets/img/vertmouse.png",
+    "url": "https://amzn.to/4mhwnIl",
+    "badge": ""
+  },
+  {
+    "title": "Ergonomic Keyboard",
+    "priceNow": 60,
+    "priceWas": "",
+    "image": "assets/img/ergkeys.png",
+    "url": "https://amzn.to/45F7vn1",
+    "badge": ""
+  },
+  {
+    "title": "LED Desk Lamp",
+    "priceNow": 48,
+    "priceWas": 80,
+    "image": "assets/img/desklamp.png",
+    "url": "https://amzn.to/4oXaPTp",
+    "badge": "deal"
   }
 ]
