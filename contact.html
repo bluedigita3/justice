@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact – Justice</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <span class="brand-logo"></span>
+      <span>Justice</span>
+    </a>
+  </div>
+</header>
+
+<main class="section container">
+  <h1>Contact Us</h1>
+  <p class="small">
+    Have a question, suggestion, or just want to say hello?  
+    Fill out the form below and we’ll get back to you as soon as possible.
+  </p>
+
+  <form action="mailto:bluedigita@gmail.com" method="post" enctype="text/plain">
+    <label for="name">Name</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="message">Message</label><br>
+    <textarea id="message" name="message" rows="6" required></textarea><br><br>
+
+    <button type="submit">Send Message</button>
+  </form>
+</main>
+
+<footer class="footer">
+  <div class="subfooter">&copy; <span id="year"></span> Justice</div>
+</footer>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
