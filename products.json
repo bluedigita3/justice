@@ -78,5 +78,13 @@
     "image": "assets/img/hpdock.png",
     "url": "https://amzn.to/45TqFXs",
     "badge": "Deal"
-    }
+    },
+   {
+    "title": "Dash Cam",
+    "priceNow": 85,
+    "priceWas": 150,
+    "image": "assets/img/dashcamk.png",
+    "url": "https://amzn.to/4g0ArKW",
+    "badge": "Deal"
+   }
 ]
